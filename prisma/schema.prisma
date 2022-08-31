@@ -51,7 +51,7 @@ model User {
   id            String          @id @default(cuid())
   name          String?
   email         String?         @unique
-  telephone     Int
+  telephone     Int?
   emailVerified DateTime?
   image         String?
   isAdmin       Boolean         @default(false)
