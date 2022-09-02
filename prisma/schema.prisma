@@ -154,3 +154,14 @@ model Payment {
   updatedAt     DateTime        @updatedAt
   OrederDetails OrederDetails[]
 }
+
+model Link {
+  id          String   @id @default(cuid())
+  url         String
+  description String
+  title       String
+  imageUrl    String
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

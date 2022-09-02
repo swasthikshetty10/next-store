@@ -1,6 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { Awaitable, RequestInternal, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../libs/prisma";
 import { sendVerificationRequest } from "../../../utils/email";

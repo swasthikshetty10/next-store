@@ -13,7 +13,15 @@ export const typeDefs = gql`
   type Query {
     links: [Link]!
   }
-  #   type Mutation{
 
-  #   }
+  type Mutation {
+    addLink(
+      title: String!
+      description: String!
+      url: String!
+      category: String!
+      imageUrl: String!
+      users: [String]!
+    ): Link
+  }
 `;
