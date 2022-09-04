@@ -1,27 +1,21 @@
 import { gql } from "apollo-server-micro";
 export const typeDefs = gql`
-  type Link {
-    id: String
-    title: String
+  type ProductCategory {
+    id: ID!
+    name: String!
     description: String
-    url: String
-    category: String
-    imageUrl: String
-    users: [String]
+    image: String
   }
 
   type Query {
-    links: [Link]!
+    productCategories: [ProductCategory]!
   }
 
   type Mutation {
-    addLink(
-      title: String!
-      description: String!
-      url: String!
-      category: String!
-      imageUrl: String!
-      users: [String]!
-    ): Link
+    addProductCategory(
+      name: String!
+      description: String
+      image: String
+    ): ProductCategory
   }
 `;

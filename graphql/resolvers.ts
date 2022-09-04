@@ -1,20 +1,19 @@
 export const resolvers = {
   Query: {
-    links: () => [],
+    productCategories: async (parent: any, args: any, context: any) => {
+      return await context.prisma.productCategory.findMany();
+    },
   },
   Mutation: {
-    addLink: async (parent: any, args: any, context: any) => {
+    addProductCategory: async (parent: any, args: any, context: any) => {
       console.log("addLink", args);
-      const data = await context.prisma.link.create({
+      return await context.prisma.productCategory.create({
         data: {
-          title: args.title,
+          name: args.name,
           description: args.description,
-          url: args.url,
-          category: args.category,
-          imageUrl: args.imageUrl,
+          image: args.image,
         },
       });
-      return data;
     },
   },
 };

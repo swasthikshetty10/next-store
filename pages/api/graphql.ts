@@ -1,4 +1,5 @@
 import { ApolloServer } from "apollo-server-micro";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { typeDefs } from "../../graphql/schema";
 import { resolvers } from "../../graphql/resolvers";
 import Cors from "micro-cors";
@@ -10,6 +11,13 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   context: createContext,
+  plugins: [
+    ApolloServerPluginLandingPageGraphQLPlayground({
+      settings: {
+        "request.credentials": "include",
+      },
+    }),
+  ],
 });
 const startServers = apolloServer.start();
 
