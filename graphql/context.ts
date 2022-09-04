@@ -6,6 +6,7 @@ import { authOptions } from "../pages/api/auth/[...nextauth]";
 
 export type Context = {
   prisma: PrismaClient;
+  session: any;
 };
 
 export async function createContext({
@@ -19,5 +20,6 @@ export async function createContext({
   const session = await unstable_getServerSession(req, res, authOptions);
   return {
     prisma,
+    session,
   };
 }
