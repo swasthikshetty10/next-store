@@ -79,16 +79,16 @@ model Address {
 model Product {
   id               Int                @id @default(autoincrement())
   name             String
-  description      String
-  SKU              String
-  price            Decimal
+  description      String?
+  SKU              String?
+  price            Decimal?
   image            String[]
   productCategory  ProductCategory    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId       Int
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   discount         Discount?          @relation(fields: [discountId], references: [id], onDelete: Cascade)
-  discountId       Int
+  discountId       Int?
   OrederItems      OrederItems[]
   ProductInventory ProductInventory[]
 }
@@ -98,7 +98,7 @@ model ProductCategory {
   name        String
   description String?
   image       String?
-  Product     Product[]
+  Products    Product[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
