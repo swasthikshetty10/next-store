@@ -13,11 +13,10 @@ export const typeDefs = gql`
   type Product {
     name: String!
     description: String
-    images: [String]
+    images: [String]!
     price: Float
     categoryId: Int
-    inventoryId: String
-    discountId: String
+    discountId: Int
   }
 
   type Query {
@@ -37,7 +36,6 @@ export const typeDefs = gql`
       images: [String]
       price: Float
       categoryId: Int
-      inventoryId: Int
       discountId: Int
     ): Product
   }

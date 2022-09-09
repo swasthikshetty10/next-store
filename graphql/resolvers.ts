@@ -39,17 +39,23 @@ async function addProductInventory(parent: any, args: any, context: any) {
 }
 
 async function addProduct(parent: any, args: any, context: any) {
-  console.log(args);
   return await context.prisma.product.create({
     data: {
       name: args.name,
-      description: args.description,
+      description: args?.description,
       images: args.images,
-      price: args.price,
+      price: args?.price,
       productCategory: {
         connect: {
           id: args.categoryId,
         },
+      },
+      discount: {
+        connect: args.discountId
+          ? {
+              id: args?.discountId,
+            }
+          : undefined,
       },
     },
   });
