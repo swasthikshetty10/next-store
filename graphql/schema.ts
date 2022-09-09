@@ -37,8 +37,8 @@ export const typeDefs = gql`
       images: [String]
       price: Float
       categoryId: Int
-      inventoryId: String
-      discountId: String
+      inventoryId: Int
+      discountId: Int
     ): Product
   }
 `;

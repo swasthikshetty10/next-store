@@ -82,7 +82,7 @@ model Product {
   description      String?
   SKU              String?
   price            Decimal?
-  image            String[]
+  images           String[]
   productCategory  ProductCategory    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId       Int
   createdAt        DateTime           @default(now())
