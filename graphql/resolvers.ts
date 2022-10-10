@@ -1,5 +1,3 @@
-import { connect } from "http2";
-
 export const resolvers = {
   Query: {
     productCategories: async (parent: any, args: any, context: any) => {
@@ -55,8 +53,18 @@ async function addProduct(parent: any, args: any, context: any) {
           ? {
               id: args?.discountId,
             }
-          : undefined,
+          : {},
       },
+    },
+  });
+}
+
+async function addDiscount(parent: any, args: any, context: any) {
+  return await context.prisma.discount.create({
+    data: {
+      name: args.name,
+      description: args?.description,
+      discountPercentage: args.discountPercentage,
     },
   });
 }

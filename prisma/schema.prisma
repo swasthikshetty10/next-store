@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,15 +13,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -45,8 +41,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// 
-
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -56,9 +50,9 @@ model User {
   image         String?
   isAdmin       Boolean         @default(false)
   accounts      Account[]
-  sessions      Session[]
   Address       Address[]
   OrederDetails OrederDetails[]
+  sessions      Session[]
 }
 
 model Address {
@@ -70,11 +64,9 @@ model Address {
   country     String
   telephone   Int
   mobile      Int
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-// Product Schema
 
 model Product {
   id               Int                @id @default(autoincrement())
@@ -82,13 +74,13 @@ model Product {
   description      String?
   SKU              String?
   price            Decimal?
-  images           String[]
-  productCategory  ProductCategory    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId       Int
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
-  discount         Discount?          @relation(fields: [discountId], references: [id], onDelete: Cascade)
   discountId       Int?
+  images           String[]
+  productCategory  ProductCategory    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  discount         Discount?          @relation(fields: [discountId], references: [id], onDelete: Cascade)
   OrederItems      OrederItems[]
   ProductInventory ProductInventory[]
 }
@@ -98,18 +90,18 @@ model ProductCategory {
   name        String
   description String?
   image       String?
-  Products    Product[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  Products    Product[]
 }
 
 model ProductInventory {
   id        Int      @id @default(autoincrement())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Discount {
@@ -123,26 +115,24 @@ model Discount {
   Product            Product[]
 }
 
-// Order Schema
-
 model OrederDetails {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   total     Decimal
-  payment   Payment? @relation(fields: [paymentId], references: [id], onDelete: Cascade)
   paymentId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  payment   Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model OrederItems {
   id        String   @id @default(cuid())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Payment {
